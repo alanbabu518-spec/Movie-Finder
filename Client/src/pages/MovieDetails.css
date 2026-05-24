@@ -1,0 +1,60 @@
+.moviedetails{
+    min-height: 100vh;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.overlap{
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(
+        to right,
+        (rgba(0, 0, 0, 0.8)25%)
+        (rgba(0, 0, 0, 0.4)50%)
+        (rgba(0, 0, 0, 0.1)100%)
+    );
+    display: flex;
+    align-items: center;
+}
+
+.content{
+    color: white;
+    max-width: 600px;
+    padding-left: 80px;
+}
+.content h1{
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.meta{
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.meta h4{
+    color: yellow;
+}
+
+.content p{
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.content button{
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+
+}
+
+.content button:hover{
+    background: #ff1f1f;
+}
+
