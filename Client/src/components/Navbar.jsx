@@ -1,22 +1,27 @@
 import React from "react";
 import './Navbar.css';
 import { FaSearch } from 'react-icons/fa';
-import logo from '../assets/movie-logo.png';
 import { Link } from "react-router-dom";
 
-function Navbar({ search, setSearch }) {
+function Navbar({ search, setSearch ,watchlist=[],setShowGenrePanel}) {
     return (
+        
         <nav className="navbar">
             <div className="navbar-left">
-                <img className="logoimg" src={logo} alt="logo" />
-                <a href="/" className="logo">Movie Finder</a>
+                <img className="logoimg" src="/movie-logo.png" alt="logo" />
+                <Link to="/" className="logo"style={{color:"white"}}>Movie</Link>
+                <Link to="/" className="logo"style={{marginLeft:"7px"}}>Finder</Link>
             </div>
 
             <div className="navbar-right">
 
                 <Link to="/" className="navigator">Home</Link>
-                <Link to="/Genre" className="navigator">Genre</Link>
-                <Link to="/Watchlist" className="navigator">Watchlist</Link>
+                <button className="navigator-genre-btn" onClick={()=>setShowGenrePanel(true)}>Genre</button>
+                <Link to="/Watchlist" className="navigator">Watchlist(
+                    <span className="watchlist-count">{watchlist.length}
+                    </span>
+                )  
+                </Link>
                 <form>
                     <div className="search">
                         <FaSearch className='search-icon' />

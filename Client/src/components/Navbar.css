@@ -5,7 +5,7 @@ body{
 
 .navbar{
     width: 100%;
-    height: 70px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,8 +14,8 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
     backdrop-filter: blur(8px);
    
 
@@ -34,12 +34,10 @@ body{
 }
 .logoimg{
     width: auto;
-    height: 40px;
+    height: 80px;
+    margin-right: -12px;
     object-fit: cover;
-    border-radius: 50%;
-   
-   
-   
+    border-radius: 50%; 
     
 }
 .navigator{
@@ -56,16 +54,18 @@ body{
     display: flex;
     align-items: center;
     text-decoration: none;
-    gap: 5px;
-     
-    
-
+    gap: 1px;
 
 }
 .navbar-right {
     display: flex;
-    justify-content: flex-end;
-    align-items: center
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
     
 }
 .search{
@@ -98,22 +98,59 @@ body{
 }
 
 .search{
-    position: relative;
     display: flex;
     align-items: center;
+
+    width: 150px;
+    height: 30px;
+
+    background: white;
+    border-radius: 20px;
+
+    padding: 0 14px;
+
+    box-shadow: 1px solid #dcdcdc;
 
 }
 
 .search-icon{
-    position: absolute;
-    left: 10px;
-    color: gray;
+    color: #777;
+    font-size: small;
+    margin-right: -12px;
+  
 }
 
 .search input{
-    padding-left: 35px;
-    height: 35px;
-    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-weight: 600;
+
     border: none;
     outline: none;
+
+    background: transparent;
+    font-size: small;
+    color: #222;
+    padding-left: 10px;
 }
+
+.watchlist-count{
+    color: #d40b15;
+    font-weight: bold;
+}
+
+.navigator-genre-btn{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    margin-left: 20px;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer; 
+}
+
+

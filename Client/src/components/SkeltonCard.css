@@ -1,0 +1,34 @@
+.skelton-card {
+  width: 220px;
+}
+
+.skelton-image {
+  width: 100%;
+  height: 330px;
+  border-radius: 10px;
+  background: #333;
+  animation: pulse 1.5s infinite;
+}
+
+.skelton-title {
+  width: 80%;
+  height: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: #333;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}

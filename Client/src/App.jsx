@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 import Watchlist from "./pages/Watchlist";
+import Navbar from "./components/Navbar";
+import {ToastContainer} from 'react-toastify';
 
 function App() {
   const [watchlist, setWatchlist] = useState(() => {
@@ -19,8 +21,9 @@ function App() {
 
   const [search, setSearch] = useState("")
   return (
+    <>
 
-
+  
     <Routes>
 
       <Route path='/' element={<Home
@@ -44,14 +47,16 @@ function App() {
         setWatchlist={setWatchlist}
       />
       }
-      />
+      />     
 
     </Routes>
+    
+    <ToastContainer 
+    position="top-center"/>
+    </>
 
   );
 
 }
-
-
 export default App;
 

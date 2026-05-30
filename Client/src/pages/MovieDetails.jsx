@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar'
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails, getMovieCredits, getMovieImages, getMovieVideos } from '../Services/tmdb';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function MovieDetails({ watchlist, setWatchlist }) {
     const { id } = useParams();
@@ -46,9 +48,9 @@ function MovieDetails({ watchlist, setWatchlist }) {
         );
         if (!exists) {
             setWatchlist([...watchlist, movie])
-            alert("movie added to watchlist");
+            toast.success("added to watchlist");
         } else {
-            alert("movie already exists");
+            toast.warning("movie already exists");
         }
 
     }
@@ -61,7 +63,7 @@ function MovieDetails({ watchlist, setWatchlist }) {
 
     return (
         <>
-            <Navbar />
+            <Navbar watchlist={watchlist} />
             <div className="moviedetails" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
 
                 <div className='overlap'>

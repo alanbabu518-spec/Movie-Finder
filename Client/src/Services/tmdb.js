@@ -54,3 +54,20 @@ export const getMovieImages = async (id) => {
   return data;
 
 };
+
+export const getTrendingMovies = async(id) =>{
+  const response =await fetch(
+    `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+
+export const getGenres = async(id) =>{
+  const response=await fetch(
+    `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  console.log(data);
+  return data.genres;
+};
