@@ -89,3 +89,29 @@ body{
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+
+  .hero-banner {
+    width: 100%;
+    padding: 15px;
+    min-height: 50vh;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-overview {
+    font-size: 0.9rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-buttons button {
+    width: 100%;
+  }
+}

@@ -1,33 +1,43 @@
-import './MovieCard.css';
 import { Link } from "react-router-dom";
+import "./MovieCard.css";
 
-
-
-
-function MovieCard({ movie, id }) {
+function MovieCard({ movie, genres }) {
+    const movieGenres = genres && movie.genre_ids?movie.genre_ids.map((id) => genres.find((g) => g.id === id)?.name).filter(Boolean).slice(0, 2).join(" . ")
+    : "";
     return (
-        <div className="container">
-            <Link
-                to={`/movie/${movie.id}`}
-                style={{ textDecoration: 'none' }}
+        <Link
+            to={`/movie/${movie.id}`}
+            style={{ textDecoration: "none" }}
+        >
+            <div className="movies-grid">
+                <div className="movie-card">
 
-            >
+                    <img
+                        className="movie-poster"
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        alt={movie.title}
+                    />
 
-                <div className="movie-card" 
-                key={id}>
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                     <div className="movie-info">
-                        <h2>{movie.title}</h2>
-                        <h4>{movie.vote_average?.toFixed(1)}</h4>
-                        <p>{movie.release_date}</p>
+
+                        <h3 className="movie-title">
+                            {movie.title}
+                        </h3>
+
+                        <p className="movie-genre">
+                            {movieGenres}
+                        </p>
+
+                        <p className="movie-rating">
+                            ⭐ {movie.vote_average?.toFixed(1)}
+                        </p>
+
                     </div>
 
-
                 </div>
-            </Link>
-
-        </div>
+            </div>
+        </Link>
     );
 }
 
-export default MovieCard
+export default MovieCard;

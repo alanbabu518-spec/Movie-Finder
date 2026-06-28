@@ -1,0 +1,30 @@
+.error-page{
+    min-height: 100vh;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-page h1{
+    font-size: 50px;
+    color: #e50914;
+
+}
+
+.error-page p{
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.error-page button{
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    
+}

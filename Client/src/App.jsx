@@ -1,62 +1,67 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 import Watchlist from "./pages/Watchlist";
-import Navbar from "./components/Navbar";
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Favorites from "./pages/Favorites";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
-  const [watchlist, setWatchlist] = useState(() => {
-    const saved = localStorage.getItem("watchlist");
-    return saved ? JSON.parse(saved) : [];
+  const [watchlist, setWatchlist] = useState([]);
 
-  });
   useEffect(() => {
-    localStorage.setItem(
-      "watchlist",
-      JSON.stringify(watchlist)
-    );
-  }, [watchlist]);
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-  const [search, setSearch] = useState("")
+    fetch(`http://localhost:5000/api/watchlist`, {
+      headers: { "Authorization": `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setWatchlist(data);
+      });
+  }, []);
+
+  const [search, setSearch] = useState("");
+
   return (
     <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              search={search}
+              setSearch={setSearch}
+              watchlist={watchlist}
+              setWatchlist={setWatchlist}
+            />
+          }
+        />
+        <Route
+          path="/Movie/:id"
+          element={
+            <MovieDetails watchlist={watchlist} setWatchlist={setWatchlist} />
+          }
+        />
+        <Route
+          path="/Watchlist"
+          element={
+            <Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
+          }
+        />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Favorites" element={<Favorites />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
 
-  
-    <Routes>
-
-      <Route path='/' element={<Home
-        search={search}
-        setSearch={setSearch}
-        watchlist={watchlist}
-        setWatchlist={setWatchlist}
-      />
-
-      }
-      />
-
-      <Route path='/Movie/:id' element={<MovieDetails
-        watchlist={watchlist}
-        setWatchlist={setWatchlist}
-      />
-      }
-      />
-      <Route path="/Watchlist" element={<Watchlist
-        watchlist={watchlist}
-        setWatchlist={setWatchlist}
-      />
-      }
-      />     
-
-    </Routes>
-    
-    <ToastContainer 
-    position="top-center"/>
+      <ToastContainer position="top-center" />
     </>
-
   );
-
 }
-export default App;
 
+export default App;

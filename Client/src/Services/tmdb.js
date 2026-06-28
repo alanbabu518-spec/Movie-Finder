@@ -24,6 +24,9 @@ export const getMovieDetails = async (id) => {
   const response = await fetch(
     `${BASE_URL}/movie/${id}?api_key=${API_KEY}`
   );
+  if(!response.ok){
+    throw new Error("moviedetails is not find")
+  }
 
   const data = await response.json();
 
@@ -34,6 +37,9 @@ export const getMovieCredits = async (id) => {
   const response = await fetch(
     `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`
   );
+  if(!response.ok){
+    throw new Error("movie is not find")
+  }
   const data = await response.json();
   return data;
 
@@ -42,6 +48,9 @@ export const getMovieVideos = async (id) => {
   const response = await fetch(
     `${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`
   );
+  if(!response.ok){
+    throw new Error("moviedetails is not find")
+  }
   const data = await response.json();
   return data;
 
@@ -50,6 +59,9 @@ export const getMovieImages = async (id) => {
   const response = await fetch(
     `${BASE_URL}/movie/${id}/images?api_key=${API_KEY}`
   );
+  if(!response.ok){
+    throw new Error("moviedetails is not find")
+  }
   const data = await response.json();
   return data;
 
@@ -70,4 +82,12 @@ export const getGenres = async(id) =>{
   const data = await response.json();
   console.log(data);
   return data.genres;
+};
+
+export const getSimilarMovies = async(id) =>{
+  const response=await fetch(
+    `${BASE_URL}/movie/${id}/similar?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data.results;
 };

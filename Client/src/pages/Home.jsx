@@ -7,7 +7,7 @@ import SkeltonCard from '../components/SkeltonCard'
 import './Home.css'
 import { motion } from 'framer-motion';
 
-function Home({ search, setSearch, watchlist }) {
+function Home({ search, setSearch, watchlist}) {
 
   const [searchResults, setSearchResults] = useState([]);
   const [popularmovies, setpopularMovies] = useState([]);
@@ -76,7 +76,7 @@ function Home({ search, setSearch, watchlist }) {
       )}
       <div>
         
-          <Navbar search={search} setSearch={setSearch} watchlist={watchlist} setShowGenrePanel={setShowGenrePanel} />
+          <Navbar watchlist={watchlist} search= {search} setSearch={setSearch} setShowGenrePanel={setShowGenrePanel} />
           {search == ""}
        
 
@@ -139,6 +139,7 @@ function Home({ search, setSearch, watchlist }) {
               >
                 <MovieCard
                   movie={movie}
+                  genres={genres}
                   id={id}
                 />
               </motion.div>
