@@ -77,7 +77,7 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
             return;
         }
 
-        const response = await fetch("http://localhost:5000/api/watchlist", {
+        const response = await fetch("https://movie-finder-43pb.onrender.com//api/watchlist", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -110,7 +110,7 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
             return;
         }
 
-        const response = await fetch("http://localhost:5000/api/favorites", {
+        const response = await fetch("https://movie-finder-43pb.onrender.com//api/favorites", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

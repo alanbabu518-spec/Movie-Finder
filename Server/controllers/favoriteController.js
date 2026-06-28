@@ -17,7 +17,6 @@ const addFavorite = async (req, res) => {
         const favorite = await Favorite.create({ user, movieId, title, poster });
         res.json(favorite);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: error.message });
     }
 };

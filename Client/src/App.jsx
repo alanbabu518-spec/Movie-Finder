@@ -16,7 +16,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`http://localhost:5000/api/watchlist`, {
+    fetch(`https://movie-finder-43pb.onrender.com//api/watchlist`, {
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())
