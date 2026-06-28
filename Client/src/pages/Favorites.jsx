@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import "./favorite.css";
+import BASE_URL from "../Services/api";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -17,13 +18,13 @@ function Favorites() {
       "Authorization": `Bearer ${token}`,
     };
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/favorites`, { headers })
+    fetch(`${BASE_URL}/api/favorites`, { headers })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setFavorites(data);
       });
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, { headers })
+    fetch(`${BASE_URL}/api/watchlist`, { headers })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setWatchlist(data);
@@ -32,7 +33,7 @@ function Favorites() {
 
   const removeFavorite = async (id) => {
     const token = localStorage.getItem("token");
-    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/favorites/${id}`, {
+    await fetch(`${BASE_URL}/api/favorites/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });

@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Favorites from "./pages/Favorites";
 import ErrorPage from "./pages/ErrorPage";
+import BASE_URL from "./Services/api";
 
 function App() {
   const [watchlist, setWatchlist] = useState([]);
@@ -16,7 +17,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, {
+    fetch(`${BASE_URL}/api/watchlist`, {
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())

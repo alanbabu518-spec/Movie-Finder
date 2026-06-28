@@ -2,6 +2,7 @@ import './Register.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import BASE_URL from "../Services/api";
 
 function Register() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Register() {
         e.preventDefault();
 
         const response = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL}/api/users/register`,
+            `${BASE_URL}/api/users/register`,
             {
                 method: "POST",
                 headers: {
@@ -33,11 +34,9 @@ function Register() {
             localStorage.setItem("Username", data.name);
             toast.success("registration sucessfull");
             navigate("/")
-        }else{
+        } else {
             alert(data.message);
         }
-        
-
     };
 
     return (
