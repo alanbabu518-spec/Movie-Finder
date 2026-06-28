@@ -27,7 +27,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
             localStorage.getItem("userId");
 
         const response = await fetch(
-            `https://movie-finder-43pb.onrender.com//api/users/profile/${userId}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userId}`,
             {
                 method: "PUT",
 
@@ -63,7 +63,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                 const userId = localStorage.getItem("userId");
 
                 const response = await fetch(
-                    `https://movie-finder-43pb.onrender.com//api/users/profile/${userId}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userId}`,
                     {
                         method: "PUT",
                         headers: {
@@ -96,7 +96,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
 
             try {
                 const response = await fetch(
-                    `https://movie-finder-43pb.onrender.com//api/users/${userId}`
+                    `${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`
                 );
 
                 const data = await response.json();

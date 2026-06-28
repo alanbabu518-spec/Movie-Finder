@@ -13,7 +13,7 @@ function Register() {
         e.preventDefault();
 
         const response = await fetch(
-            "https://movie-finder-43pb.onrender.com//api/users/register",
+            `${import.meta.env.VITE_API_BASE_URL}/api/users/register`,
             {
                 method: "POST",
                 headers: {

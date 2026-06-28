@@ -17,13 +17,13 @@ function Favorites() {
       "Authorization": `Bearer ${token}`,
     };
 
-    fetch(`https://movie-finder-43pb.onrender.com//api/favorites`, { headers })
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/favorites`, { headers })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setFavorites(data);
       });
 
-    fetch(`https://movie-finder-43pb.onrender.com//api/watchlist`, { headers })
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, { headers })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setWatchlist(data);
@@ -32,7 +32,7 @@ function Favorites() {
 
   const removeFavorite = async (id) => {
     const token = localStorage.getItem("token");
-    await fetch(`https://movie-finder-43pb.onrender.com//api/favorites/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/favorites/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });
@@ -95,3 +95,4 @@ function Favorites() {
 }
 
 export default Favorites;
+

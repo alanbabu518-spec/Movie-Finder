@@ -6,7 +6,7 @@ function Watchlist({ watchlist, setWatchlist }) {
 
   const removeMovie = async (id) => {
     const token = localStorage.getItem("token");
-    await fetch(`https://movie-finder-43pb.onrender.com//api/watchlist/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });
@@ -19,7 +19,7 @@ function Watchlist({ watchlist, setWatchlist }) {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`https://movie-finder-43pb.onrender.com//api/watchlist`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, {
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -110,3 +110,4 @@ function Watchlist({ watchlist, setWatchlist }) {
 }
 
 export default Watchlist;
+

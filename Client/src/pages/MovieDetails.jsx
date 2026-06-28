@@ -77,7 +77,7 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
             return;
         }
 
-        const response = await fetch("https://movie-finder-43pb.onrender.com//api/watchlist", {
+        const response = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/watchlist", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -110,7 +110,7 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
             return;
         }
 
-        const response = await fetch("https://movie-finder-43pb.onrender.com//api/favorites", {
+        const response = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/favorites", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -306,5 +306,6 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
     );
 }
 export default MovieDetails
+
 
 

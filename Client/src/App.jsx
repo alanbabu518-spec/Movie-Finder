@@ -16,7 +16,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`https://movie-finder-43pb.onrender.com//api/watchlist`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, {
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -65,3 +65,4 @@ function App() {
 }
 
 export default App;
+
