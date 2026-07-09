@@ -94,18 +94,26 @@ The app is now running at `http://localhost:5173`.
 ### 🏠 Home Page
 ![Home Page](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/Home_page.png)
 
+
 ### 🔍 Search
 ![Search](./Screenshots/Search_Movies.png)
+
 
 ### 🎬 Movie Details
 ![Movie Details](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/MovieDetails_page.png)
 ![Movie Details](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/MovieDetails_page2.png)
 
+
 ### ❤️ Favorites
 ![Favorites](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/Favorites_page.png)
 
+
 ### 🎞️ Watchlist
 ![Watchlist](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/Watchlist_page.png)
+
+
+### 🎞️ User Review
+![Watchlist](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/User_Reviews.png)
  
 
 
