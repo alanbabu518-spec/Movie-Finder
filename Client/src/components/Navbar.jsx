@@ -4,6 +4,7 @@ import { FaSearch, FaCamera } from 'react-icons/fa';
 import { Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from "../Services/api";
 
 
 function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite }) {
@@ -27,7 +28,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
             localStorage.getItem("userId");
 
         const response = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userId}`,
+            `${BASE_URL}/api/users/profile/${userId}`,
             {
                 method: "PUT",
 
@@ -63,7 +64,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                 const userId = localStorage.getItem("userId");
 
                 const response = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userId}`,
+                    `${BASE_URL}/api/users/profile/${userId}`,
                     {
                         method: "PUT",
                         headers: {
@@ -96,7 +97,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
 
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`
+                    `${BASE_URL}/api/users/${userId}`
                 );
 
                 const data = await response.json();

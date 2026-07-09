@@ -1,7 +1,6 @@
-import { data } from 'react-router-dom';
 import './MovieDetails.css';
-import Navbar from '../components/Navbar'
-import { Link, useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails, getMovieCredits, getMovieImages, getMovieVideos, getSimilarMovies } from '../Services/tmdb';
 import { toast, ToastContainer } from 'react-toastify';
@@ -12,6 +11,7 @@ import MovieCard from '../components/MovieCard';
 import RatingStars from '../components/RatingStars';
 import ReviewCard from '../components/ReviewCard';
 import ReviewBottomSheet from '../components/ReviewBottomSheet';
+import BASE_URL from '../Services/api';
 
 function MovieDetails({ watchlist, setWatchlist, genres }) {
     const { id } = useParams();
@@ -27,57 +27,46 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
 
     useEffect(() => {
         getMovieDetails(id).then(setMovie)
-            .catch(() => {
-                setError(true)
-            })
+            .catch(() => { setError(true) });
 
         getMovieCredits(id).then((data) => {
             if (data.cast) {
-                setCast(data.cast.slice(0.8));
+                setCast(data.cast.slice(0, 8)); // FIX: was slice(0.8)
             }
-        })
-            .catch(() => setError(true));
+        }).catch(() => setError(true));
 
         getSimilarMovies(id).then((data) => {
             setSimilarMovies(data || []);
-
-        })
-            .catch(() => setError(true));
+        }).catch(() => setError(true));
 
         getMovieVideos(id).then((data) => {
             if (data.results) {
                 const trailerVideo = data.results.find(
-                    (video) =>
-                        video.type === "Trailer" &&
-                        video.site === "YouTube"
+                    (video) => video.type === "Trailer" && video.site === "YouTube"
                 );
-
                 setTrailer(trailerVideo);
             }
-        })
-            .catch(() => setError(true));
+        }).catch(() => setError(true));
+
         getMovieImages(id).then((data) => {
             if (data.backdrops) {
                 setImage(data.backdrops.slice(0, 6));
             }
-        })
-            .catch(() => setError(true));
+        }).catch(() => setError(true));
     }, [id]);
 
     if (error) {
         return <ErrorPage />;
     }
 
-
     const addtoWatchlist = async () => {
         const token = localStorage.getItem("token");
-
         if (!token) {
             toast.error("Please login to add to watchlist");
             return;
         }
 
-        const response = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/watchlist", {
+        const response = await fetch(`${BASE_URL}/api/watchlist`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -94,7 +83,6 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
         });
 
         const data = await response.json();
-
         if (!response.ok) {
             toast.error(data.message);
             return;
@@ -104,13 +92,12 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
 
     const AddToFavorites = async () => {
         const token = localStorage.getItem("token");
-
         if (!token) {
             toast.error("Please login to add to favorites");
             return;
         }
 
-        const response = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/favorites", {
+        const response = await fetch(`${BASE_URL}/api/favorites`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -124,63 +111,38 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
         });
 
         const data = await response.json();
-
         if (!response.ok) {
             toast.error(data.message);
             return;
         }
-
         toast.success("Added to Favorites");
-    }
+    };
 
     useEffect(() => {
-        const savedReviews =
-            JSON.parse(localStorage.getItem(`reviews-${id}`)) || [];
-
+        const savedReviews = JSON.parse(localStorage.getItem(`reviews-${id}`)) || [];
         setReviews(savedReviews);
     }, [id]);
 
     const addReview = (newReview) => {
         const updatedReviews = [...reviews, newReview];
-
         setReviews(updatedReviews);
-
-        localStorage.setItem(
-            `reviews-${id}`,
-            JSON.stringify(updatedReviews)
-        );
+        localStorage.setItem(`reviews-${id}`, JSON.stringify(updatedReviews));
     };
 
     const averageRating =
         reviews.length > 0
-            ? (
-                reviews.reduce((sum, review) => sum + review.rating, 0) /
-                reviews.length
-            ).toFixed(1)
+            ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
             : "0.0";
 
-    const deleteReview = (id) => {
-
-        const updatedReviews =
-            reviews.filter(review => review.id !== id);
-
+    const deleteReview = (reviewId) => {
+        const updatedReviews = reviews.filter(review => review.id !== reviewId);
         setReviews(updatedReviews);
-
-        localStorage.setItem(
-            `reviews-${movie.id}`,
-            JSON.stringify(updatedReviews)
-        );
-
+        localStorage.setItem(`reviews-${movie.id}`, JSON.stringify(updatedReviews));
     };
 
     const editReview = (review) => {
-
-        setEditingReview(review);
-
-        setShowReviewForm(true);
-
+        console.log("Edit review:", review);
     };
-
 
     if (!movie) {
         return <h2>Loading...</h2>;
@@ -190,7 +152,6 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
         <>
             <Navbar watchlist={watchlist} />
             <div className="moviedetails" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
-
                 <div className='overlap'>
                     <div className="content">
                         <h1>{movie.title}</h1>
@@ -206,10 +167,7 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                             <div className="action-icon">
                                 <button onClick={() => {
                                     document.getElementById("trailer-section")
-                                        ?.scrollIntoView({
-                                            behavior: "smooth",
-                                            block: "start"
-                                        });
+                                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
                                 }}>
                                     <i><FaPlay /></i>
                                 </button>
@@ -221,7 +179,6 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                                 </button>
                                 <span className="tooltip">Add to Watchlist</span>
                             </div>
-
                             <div className="action-icon">
                                 <button onClick={AddToFavorites}>
                                     <i><FaHeart /></i>
@@ -234,13 +191,10 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                                     <span className="tooltip">User Reviews</span>
                                 </button>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
-
 
             <div className="cast-section">
                 <h2>Actors</h2>
@@ -248,28 +202,20 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                     {cast.map((actor) => (
                         <div className="cast-card" key={actor.id}>
                             <img src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`} alt={actor.name} />
-
                             <div className="cast-info">
                                 <h4>{actor.name}</h4>
                                 <p>{actor.character}</p>
                             </div>
                         </div>
-
                     ))}
                 </div>
             </div>
 
-
             <div className="movie-extra">
                 <h2>Similar Movies</h2>
-
                 <div className="similar-container">
                     {similarMovies?.map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            movie={movie}
-                            genres={movie.genres}
-                        />
+                        <MovieCard key={movie.id} movie={movie} genres={movie.genres} />
                     ))}
                 </div>
             </div>
@@ -285,7 +231,6 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                 />
             )}
 
-
             <div className="movie-extra">
                 <h2>Trailer</h2>
                 <div id="trailer-section" className="trailer-container">
@@ -300,12 +245,8 @@ function MovieDetails({ watchlist, setWatchlist, genres }) {
                     )}
                 </div>
             </div>
-
         </>
-
     );
 }
-export default MovieDetails
 
-
-
+export default MovieDetails;

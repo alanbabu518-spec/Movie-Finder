@@ -2,6 +2,7 @@ import "./Login.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BASE_URL from "../Services/api";
 
 
 function Login(){
@@ -14,7 +15,7 @@ function Login(){
             e.preventDefault();
     
             const response = await fetch(
-               `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+               `${BASE_URL}/api/users/login`,
                 {
                     method: "POST",
                     headers: {

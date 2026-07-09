@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import BASE_URL from "../Services/api";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 
@@ -6,7 +7,7 @@ function Watchlist({ watchlist, setWatchlist }) {
 
   const removeMovie = async (id) => {
     const token = localStorage.getItem("token");
-    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist/${id}`, {
+    await fetch(`${BASE_URL}/api/watchlist/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });
@@ -19,7 +20,7 @@ function Watchlist({ watchlist, setWatchlist }) {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/watchlist`, {
+    fetch(`${BASE_URL}/api/watchlist`, {
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())

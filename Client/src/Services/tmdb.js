@@ -80,7 +80,6 @@ export const getGenres = async(id) =>{
     `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
   );
   const data = await response.json();
-  console.log(data);
   return data.genres;
 };
 
