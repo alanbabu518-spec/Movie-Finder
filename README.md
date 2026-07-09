@@ -92,7 +92,7 @@ The app is now running at `http://localhost:5173`.
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page](./Screenshots/Home_page.png)
+![Home Page](https://github.com/alanbabu518-spec/Movie-Finder/blob/main/Screenshots/Home_page.png)
 
 ### 🔍 Search
 ![Search](./Screenshots/Search_Movies.png)
