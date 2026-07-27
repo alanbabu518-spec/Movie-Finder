@@ -1,2 +1,2 @@
-const BASE_URL = "https://movie-finder-43pb.onrender.com";
+const BASE_URL = "https://movies-finder-g4vr.onrender.com";
 export default BASE_URL;
