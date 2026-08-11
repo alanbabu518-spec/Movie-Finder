@@ -92,26 +92,62 @@ body{
 
 @media (max-width: 768px) {
 
+  .mySwiper {
+    height: 60vh;
+    padding-top: 60px;
+  }
+
+  .hero {
+    height: 55vh;
+    padding-top: 120px;
+    padding-bottom: 40px;
+  }
+
   .hero-banner {
     width: 100%;
-    padding: 15px;
-    min-height: 50vh;
+    height: 55vh;
   }
 
-  .hero-title {
-    font-size: 1.5rem;
+  .overlay {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
-  .hero-overview {
-    font-size: 0.9rem;
+  .overlay h1 {
+    font-size: 1.7rem;
+    max-width: 100%;
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    gap: 10px;
+  .overlay p {
+    font-size: 0.95rem;
   }
 
-  .hero-buttons button {
-    width: 100%;
+  .overlay button {
+    width: 130px;
+    padding: 10px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .mySwiper {
+    height: 50vh;
+  }
+
+  .hero,
+  .hero-banner {
+    height: 45vh;
+    min-height: 320px;
+  }
+
+  .overlay h1 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .overlay p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
   }
 }
