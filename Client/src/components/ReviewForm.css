@@ -140,3 +140,18 @@ transform:translateY(0);
 }
 
 }
+
+@media (max-width: 480px) {
+
+  .review-form-sheet {
+    padding: 18px;
+  }
+
+  .review-form-sheet textarea {
+    height: 130px;
+  }
+
+  .form-header h2 {
+    font-size: 18px;
+  }
+}
