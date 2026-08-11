@@ -66,3 +66,19 @@
 .remove-btn:hover {
   background: #ff2d2d;
 }
+
+@media (max-width: 600px) {
+
+  .favorites-page {
+    padding: 80px 15px 20px;
+  }
+
+  .favorite-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .favorite-card img {
+    height: 220px;
+  }
+}
