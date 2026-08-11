@@ -104,3 +104,20 @@ transition:.3s;
 background:#b20710;
 
 }
+
+@media (max-width: 600px) {
+
+  .summary-card {
+    padding: 18px;
+    flex-direction: column;
+  }
+
+  .summary-left h1 {
+    font-size: 48px;
+  }
+
+  .write-review-btn {
+    width: 100%;
+    margin-left: 0;
+  }
+}
