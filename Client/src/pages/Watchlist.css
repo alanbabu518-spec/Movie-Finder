@@ -1,0 +1,31 @@
+.watchlist-page {
+  color: white;
+  padding-top: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.watchlist-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.watchlist-table-wrapper table {
+  min-width: 700px;
+}
+
+@media (max-width: 768px) {
+
+  .watchlist-page {
+    padding-top: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .watchlist-page h1 {
+    font-size: 1.4rem;
+  }
+}
