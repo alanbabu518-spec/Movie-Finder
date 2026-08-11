@@ -217,4 +217,30 @@
 @media (max-width: 900px) {
   .review-panel { width: 100%; }
 }
+
+@media (max-width: 600px) {
+
+  .review-panel {
+    padding: 16px;
+  }
+
+  .review-header h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .close-review {
+    margin-top: 0;
+    font-size: 24px;
+  }
+
+  .inline-review-form {
+    padding: 16px;
+  }
+
+  .inline-textarea {
+    height: 110px;
+  }
+}
  
