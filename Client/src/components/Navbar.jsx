@@ -1,6 +1,6 @@
 import React from "react";
 import './Navbar.css';
-import { FaSearch, FaCamera } from 'react-icons/fa';
+import { FaSearch, FaCamera, FaBars, FaTimes } from 'react-icons/fa';
 import { Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
     };
     const [showmenu, setShowmenu] = useState(false);
     const [showSidebar, setShowSidebar] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [profilePic, setProfilePic] = useState("");
@@ -124,20 +125,28 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                 <Link to="/" className="logo" style={{ marginLeft: "7px" }}>Finder</Link>
             </div>
 
-            <div className="navbar-right">
+            <button
+                className="hamburger-btn"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                aria-label="Toggle menu"
+            >
+                {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
 
-                <Link to="/" className="navigator">Home</Link>
-                <button className="navigator-genre-btn" onClick={() => setShowGenrePanel(true)}>Genre</button>
+            <div className={`navbar-right ${mobileMenuOpen ? "active" : ""}`}>
+
+                <Link to="/" className="navigator" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                <button className="navigator-genre-btn" onClick={() => { setShowGenrePanel(true); setMobileMenuOpen(false); }}>Genre</button>
 
                 {token && (
                     <>
-                        <Link to="/Watchlist" className="navigator">Watchlist(
+                        <Link to="/Watchlist" className="navigator" onClick={() => setMobileMenuOpen(false)}>Watchlist(
                             <span className="watchlist-count">{watchlist.length}
                             </span>
                             )
                         </Link>
 
-                        <Link to="/Favorites" className="navigator">Favorites
+                        <Link to="/Favorites" className="navigator" onClick={() => setMobileMenuOpen(false)}>Favorites
                         </Link>
                     </>
                 )}
@@ -154,14 +163,14 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                 </form>
                 {!token && (
                     <>
-                        <Link to="/login" className="navigator" style={{ color: "#e50916" }}>Login</Link>
-                        <Link to="/Register" className="navigator" style={{ color: "#e50916" }}>Register</Link>
+                        <Link to="/login" className="navigator" style={{ color: "#e50916" }} onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                        <Link to="/Register" className="navigator" style={{ color: "#e50916" }} onClick={() => setMobileMenuOpen(false)}>Register</Link>
                     </>
                 )}
 
                 {token && (
                     <div className="user-avatar"
-                        onClick={() => setShowSidebar(true)}>
+                        onClick={() => { setShowSidebar(true); setMobileMenuOpen(false); }}>
                         {Username?.charAt(0).toUpperCase()}
                     </div>
                 )}
