@@ -61,3 +61,26 @@
   padding: 15px;
   margin-top: 18px;
 }
+
+@media (max-width: 480px) {
+
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .movie-card {
+    width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .movie-poster {
+    height: 220px;
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+}
