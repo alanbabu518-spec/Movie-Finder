@@ -171,3 +171,30 @@ background:#0b5ed7;
 .delete-btn:hover{
 background:#bb2d3b;
 }
+
+@media (max-width: 480px) {
+
+  .review-card {
+    padding: 15px;
+  }
+
+  .review-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .review-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .review-actions {
+    width: 100%;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    flex: 1;
+  }
+}
