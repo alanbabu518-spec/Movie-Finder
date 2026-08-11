@@ -322,5 +322,92 @@ html{
 
 }
 
+@media (max-width: 900px) {
+
+    .content {
+        margin-left: 25px;
+        margin-right: 25px;
+        max-width: 100%;
+    }
+
+    .content h1 {
+        font-size: 2.4rem;
+    }
+
+    .cast-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .moviedetails {
+        margin-top: 0;
+        background-position: top center;
+    }
+
+    .overlap {
+        min-height: auto;
+        padding: 100px 0 30px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+    }
+
+    .content {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+
+    .content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+
+    .meta {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.9rem;
+    }
+
+    .content p {
+        font-size: 0.9rem;
+    }
+
+    .movie-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cast-section,
+    .movie-extra {
+        padding: 25px 18px;
+    }
+
+    .cast-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .cast-card {
+        padding: 10px;
+        height: auto;
+        gap: 10px;
+    }
+
+    .cast-card img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tooltip {
+        display: none;
+    }
+}
+
 
 
