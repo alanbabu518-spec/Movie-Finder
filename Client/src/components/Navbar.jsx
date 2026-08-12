@@ -201,7 +201,7 @@ function Navbar({
 
                         <input
                             type="text"
-                            placeholder="Search Movies"
+                            placeholder="Search"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
