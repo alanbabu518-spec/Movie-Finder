@@ -329,8 +329,8 @@ html {
 
 @media (max-width: 600px) {
     .moviedetails {
-        height: 650px;
-        min-height: 650px;
+        height: 700px;
+        min-height: 700px;
         margin-top: 60px;
 
         background-position: top center;
