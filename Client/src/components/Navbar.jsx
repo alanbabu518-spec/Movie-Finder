@@ -1,55 +1,63 @@
-import React from "react";
-import './Navbar.css';
-import { FaSearch, FaCamera, FaBars, FaTimes } from 'react-icons/fa';
-import { Link, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import "./Navbar.css";
+import {
+    FaSearch,
+    FaCamera,
+    FaBars,
+    FaTimes,
+    FaHome,
+    FaFilm,
+    FaHeart,
+    FaBookmark
+} from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import BASE_URL from "../Services/api";
 
-
-function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite }) {
+function Navbar({
+    search,
+    setSearch,
+    watchlist = [],
+    setShowGenrePanel,
+    Favorite
+}) {
     const token = localStorage.getItem("token");
-    const Username = localStorage.getItem("Username");
+    const storedUsername = localStorage.getItem("Username");
+
+    const [showSidebar, setShowSidebar] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [username, setUsername] = useState(storedUsername || "");
+    const [profilePic, setProfilePic] = useState("");
+
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("Username");
         localStorage.removeItem("userId");
         window.location.reload();
     };
-    const [showmenu, setShowmenu] = useState(false);
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [profilePic, setProfilePic] = useState("");
 
     const saveUsername = async () => {
-
-        const userId =
-            localStorage.getItem("userId");
+        const userId = localStorage.getItem("userId");
 
         const response = await fetch(
             `${BASE_URL}/api/users/profile/${userId}`,
             {
                 method: "PUT",
-
                 headers: {
                     "Content-Type": "application/json"
                 },
-
                 body: JSON.stringify({
                     username
                 })
             }
         );
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
         setUsername(data.name);
-
-        setEditMode(false);
-    }
+        localStorage.setItem("Username", data.name);
+    };
 
     const handleProfileUpload = (e) => {
         const file = e.target.files[0];
@@ -61,7 +69,6 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
         reader.onloadend = async () => {
             try {
                 const imageData = reader.result;
-
                 const userId = localStorage.getItem("userId");
 
                 const response = await fetch(
@@ -69,11 +76,11 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                     {
                         method: "PUT",
                         headers: {
-                            "Content-Type": "application/json",
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            profilePic: imageData,
-                        }),
+                            profilePic: imageData
+                        })
                     }
                 );
 
@@ -87,11 +94,8 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
         reader.readAsDataURL(file);
     };
 
-
     useEffect(() => {
-
         const fetchProfile = async () => {
-
             const userId = localStorage.getItem("userId");
 
             if (!userId) return;
@@ -106,83 +110,287 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                 setUsername(data.name);
                 setProfilePic(data.ProfilePic);
 
+                localStorage.setItem("Username", data.name);
             } catch (err) {
                 console.log(err);
             }
         };
 
         fetchProfile();
-
     }, []);
 
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false);
+    };
+
+    const firstLetter = (
+        username ||
+        storedUsername ||
+        "U"
+    ).charAt(0).toUpperCase();
 
     return (
-
         <nav className="navbar">
+
             <div className="navbar-left">
-                <img className="logoimg" src="/movie-logo.png" alt="logo" />
-                <Link to="/" className="logo" style={{ color: "white" }}>Movie</Link>
-                <Link to="/" className="logo" style={{ marginLeft: "7px" }}>Finder</Link>
+
+                <button
+                    className="hamburger-btn"
+                    onClick={() => setMobileMenuOpen(prev => !prev)}
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+                </button>
+
+                <Link to="/" className="logo-container">
+                    <img
+                        className="logoimg"
+                        src="/movie-logo.png"
+                        alt="Movie Finder"
+                    />
+
+                    <span className="logo movie-logo">
+                        Movie
+                    </span>
+
+                    <span className="logo finder-logo">
+                        Finder
+                    </span>
+                </Link>
+
             </div>
 
-            <button
-                className="hamburger-btn"
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
-                aria-label="Toggle menu"
-            >
-                {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-            </button>
+            <div className="navbar-right">
 
-            <div className={`navbar-right ${mobileMenuOpen ? "active" : ""}`}>
+                <Link to="/" className="navigator">
+                    Home
+                </Link>
 
-                <Link to="/" className="navigator" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-                <button className="navigator-genre-btn" onClick={() => { setShowGenrePanel(true); setMobileMenuOpen(false); }}>Genre</button>
+                <button
+                    className="navigator-genre-btn"
+                    onClick={() => setShowGenrePanel(true)}
+                >
+                    Genre
+                </button>
 
                 {token && (
                     <>
-                        <Link to="/Watchlist" className="navigator" onClick={() => setMobileMenuOpen(false)}>Watchlist(
-                            <span className="watchlist-count">{watchlist.length}
+                        <Link
+                            to="/Watchlist"
+                            className="navigator"
+                        >
+                            Watchlist (
+                            <span className="watchlist-count">
+                                {watchlist.length}
                             </span>
                             )
                         </Link>
 
-                        <Link to="/Favorites" className="navigator" onClick={() => setMobileMenuOpen(false)}>Favorites
+                        <Link
+                            to="/Favorites"
+                            className="navigator"
+                        >
+                            Favorites
                         </Link>
                     </>
                 )}
-                <form>
+
+                <form onSubmit={(e) => e.preventDefault()}>
                     <div className="search">
-                        <FaSearch className='search-icon' />
-                        <input type="text"
+                        <FaSearch className="search-icon" />
+
+                        <input
+                            type="text"
                             placeholder="Search Movies"
                             value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value)
-                            }} />
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
                     </div>
                 </form>
+
                 {!token && (
                     <>
-                        <Link to="/login" className="navigator" style={{ color: "#e50916" }} onClick={() => setMobileMenuOpen(false)}>Login</Link>
-                        <Link to="/Register" className="navigator" style={{ color: "#e50916" }} onClick={() => setMobileMenuOpen(false)}>Register</Link>
+                        <Link
+                            to="/login"
+                            className="navigator login-link"
+                        >
+                            Login
+                        </Link>
+
+                        <Link
+                            to="/Register"
+                            className="navigator login-link"
+                        >
+                            Register
+                        </Link>
                     </>
                 )}
 
                 {token && (
-                    <div className="user-avatar"
-                        onClick={() => { setShowSidebar(true); setMobileMenuOpen(false); }}>
-                        {Username?.charAt(0).toUpperCase()}
+                    <div
+                        className="user-avatar"
+                        onClick={() => setShowSidebar(true)}
+                    >
+                        {profilePic ? (
+                            <img
+                                src={profilePic}
+                                alt="profile"
+                                className="navbar-avatar"
+                            />
+                        ) : (
+                            firstLetter
+                        )}
                     </div>
                 )}
+
             </div>
+
+            {mobileMenuOpen && (
+                <>
+                    <div
+                        className="menu-overlay"
+                        onClick={closeMobileMenu}
+                    ></div>
+
+                    <aside className="navigation-drawer">
+
+                        <div className="drawer-header">
+
+                            <div className="drawer-logo">
+                                <img
+                                    src="/movie-logo.png"
+                                    alt="Movie Finder"
+                                />
+
+                                <span>
+                                    Movie <b>Finder</b>
+                                </span>
+                            </div>
+
+                            <button
+                                className="drawer-close"
+                                onClick={closeMobileMenu}
+                            >
+                                <FaTimes />
+                            </button>
+
+                        </div>
+
+                        <div className="drawer-links">
+
+                            <Link
+                                to="/"
+                                className="drawer-link"
+                                onClick={closeMobileMenu}
+                            >
+                                <FaHome />
+                                <span>Home</span>
+                            </Link>
+
+                            <button
+                                className="drawer-link drawer-button"
+                                onClick={() => {
+                                    setShowGenrePanel(true);
+                                    closeMobileMenu();
+                                }}
+                            >
+                                <FaFilm />
+                                <span>Genres</span>
+                            </button>
+
+                            {token && (
+                                <Link
+                                    to="/Favorites"
+                                    className="drawer-link"
+                                    onClick={closeMobileMenu}
+                                >
+                                    <FaHeart />
+                                    <span>Favorites</span>
+                                </Link>
+                            )}
+
+                            {token && (
+                                <Link
+                                    to="/Watchlist"
+                                    className="drawer-link"
+                                    onClick={closeMobileMenu}
+                                >
+                                    <FaBookmark />
+                                    <span>Watchlist</span>
+
+                                    <span className="drawer-count">
+                                        {watchlist.length}
+                                    </span>
+                                </Link>
+                            )}
+
+                        </div>
+
+                        {!token && (
+                            <div className="drawer-auth">
+
+                                <Link
+                                    to="/login"
+                                    className="drawer-auth-btn"
+                                    onClick={closeMobileMenu}
+                                >
+                                    Login
+                                </Link>
+
+                                <Link
+                                    to="/Register"
+                                    className="drawer-auth-btn register-btn"
+                                    onClick={closeMobileMenu}
+                                >
+                                    Register
+                                </Link>
+
+                            </div>
+                        )}
+
+                        {token && (
+                            <div className="drawer-user">
+
+                                <div className="drawer-user-avatar">
+
+                                    {profilePic ? (
+                                        <img
+                                            src={profilePic}
+                                            alt="profile"
+                                        />
+                                    ) : (
+                                        firstLetter
+                                    )}
+
+                                </div>
+
+                                <div className="drawer-user-info">
+                                    <span>Welcome</span>
+                                    <strong>
+                                        {username || storedUsername}
+                                    </strong>
+                                </div>
+
+                            </div>
+                        )}
+
+                    </aside>
+                </>
+            )}
 
             {showSidebar && (
                 <>
-                    <div className="overlayy"
-                        onClick={() => setShowSidebar(false)}></div>
-                    <div className="profile-sidebar"
-                        onClick={(e) => e.stopPropagation()}>
-                        <div className="profile-avatar" onClick={() => setShowSidebar(true)}>
+                    <div
+                        className="overlayy"
+                        onClick={() => setShowSidebar(false)}
+                    ></div>
+
+                    <div
+                        className="profile-sidebar"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+
+                        <div className="profile-avatar">
 
                             {profilePic ? (
                                 <img
@@ -192,11 +400,14 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                                 />
                             ) : (
                                 <div className="avatar-letter">
-                                    {Username.charAt(0).toUpperCase()}
+                                    {firstLetter}
                                 </div>
                             )}
 
-                            <label htmlFor="profile-upload" className="camera-btn">
+                            <label
+                                htmlFor="profile-upload"
+                                className="camera-btn"
+                            >
                                 <FaCamera />
                             </label>
 
@@ -208,23 +419,37 @@ function Navbar({ search, setSearch, watchlist = [], setShowGenrePanel, Favorite
                             />
 
                         </div>
-                        <h2 style={{ color: "red", textAlign: "center", marginTop: "20px" }}>Hi {Username}</h2>
-                        <button className="sidebar-btn"
-                            onClick={() => navigate("/login")}>
+
+                        <h2
+                            style={{
+                                color: "red",
+                                textAlign: "center",
+                                marginTop: "20px"
+                            }}
+                        >
+                            Hi {username || storedUsername}
+                        </h2>
+
+                        <button
+                            className="sidebar-btn"
+                            onClick={() => navigate("/login")}
+                        >
                             Switch Account
                         </button>
-                        <button className="sidebar-btn logout"
-                            onClick={handleLogout}>
+
+                        <button
+                            className="sidebar-btn logout"
+                            onClick={handleLogout}
+                        >
                             Logout
                         </button>
+
                     </div>
                 </>
             )}
+
         </nav>
-
-
     );
 }
-
 
 export default Navbar;
