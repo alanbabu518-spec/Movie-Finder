@@ -87,7 +87,7 @@ The app is now running at `http://localhost:5173`.
 
 ## 🌐 Live Demo
 
-[movie-finder live demo](https://movie-finder-chi-ochre.vercel.app/)
+[movie-finder live demo](movie-finder-ybrz.vercel.app/)
 
 ## 📸 Screenshots
 
